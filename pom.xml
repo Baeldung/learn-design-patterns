@@ -3,14 +3,22 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <description>The 'Learn Design Patterns' Course: Getting Started with Design Patterns</description>
-    <name>ldp-getting-started-with-design-patterns</name>
+    <description>The 'Learn Design Patterns' Course: Creational Design Patterns</description>
+    <name>ldp-creational-design-patterns</name>
 
     <groupId>com.baeldung</groupId>
-    <artifactId>ldp-getting-started-with-design-patterns</artifactId>
+    <artifactId>ldp-creational-design-patterns</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
+        <module>the-singleton-pattern-start</module>
+        <module>the-singleton-pattern-end</module>
+        <module>the-builder-pattern-start</module>
+        <module>the-builder-pattern-end</module>
+        <module>the-factory-method-pattern-start</module>
+        <module>the-factory-method-pattern-end</module>
+        <module>the-prototype-pattern-start</module>
+        <module>the-prototype-pattern-end</module>
     </modules>
 </project>
