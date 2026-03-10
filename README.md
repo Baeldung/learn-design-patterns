@@ -1,3 +1,3 @@
-# Learn Design Patterns - Getting Started with Design Patterns
+# Learn Design Patterns - Creational Design Patterns
 
-This is the codebase for Module "Getting Started with Design Patterns" of Learn Design Patterns.
+This is the codebase for Module "Creational Design Patterns" of Learn Design Patterns.
