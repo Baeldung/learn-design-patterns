@@ -1,3 +1,3 @@
-# Learn Design Patterns - Structural Design Patterns
+# Learn Design Patterns - Behavioral Design Patterns
 
-This is the codebase for Module "Structural Design Patterns" of Learn Design Patterns.
+This is the codebase for Module "Behavioral Design Patterns" of Learn Design Patterns.
