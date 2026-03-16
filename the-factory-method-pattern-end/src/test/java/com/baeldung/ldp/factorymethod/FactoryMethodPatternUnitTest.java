@@ -11,19 +11,19 @@ class FactoryMethodPatternUnitTest {
     void givenPdfExportTaskCreator_whenCreateTask_thenReturnsPdfExportTask() {
         TaskService service = new TaskService(new PdfExportTaskCreator());
 
-        Task task = service.createTask("Send welcome email");
+        Task task = service.createTask("Generate quarterly report");
 
         assertInstanceOf(PdfExportTask.class, task);
-        assertEquals("Send welcome email", task.getName());
+        assertEquals("Generate quarterly report", task.getName());
     }
 
     @Test
     void givenCsvExportTaskCreator_whenCreateTask_thenReturnsCsvExportTask() {
         TaskService service = new TaskService(new CsvExportTaskCreator());
 
-        Task task = service.createTask("Run cleanup query");
+        Task task = service.createTask("Export user data");
 
         assertInstanceOf(CsvExportTask.class, task);
-        assertEquals("Run cleanup query", task.getName());
+        assertEquals("Export user data", task.getName());
     }
 }
