@@ -5,12 +5,9 @@ import java.util.List;
 public class SecurityProxyRepository implements TaskRepository {
 
     private final TaskRepository realRepository;
-    private final UserContext userContext;
 
-    public SecurityProxyRepository(TaskRepository realRepository,
-      UserContext userContext) {
+    public SecurityProxyRepository(TaskRepository realRepository) {
         this.realRepository = realRepository;
-        this.userContext = userContext;
     }
 
     @Override
@@ -25,9 +22,8 @@ public class SecurityProxyRepository implements TaskRepository {
 
     @Override
     public void deleteTask(Long id) {
-        if (userContext.getRole() != UserRole.ADMIN) {
-            throw new SecurityException(
-              "Only ADMIN users can delete tasks");
+        if (UserContextHolder.getRole() != UserRole.ADMIN) {
+            throw new SecurityException("Only ADMIN users can delete tasks");
         }
         realRepository.deleteTask(id);
     }

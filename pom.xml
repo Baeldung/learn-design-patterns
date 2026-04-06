@@ -18,5 +18,7 @@
         <module>the-decorator-pattern-end</module>
         <module>the-proxy-pattern-start</module>
         <module>the-proxy-pattern-end</module>
+        <module>the-facade-pattern-start</module>
+        <module>the-facade-pattern-end</module>
     </modules>
 </project>

@@ -11,9 +11,8 @@ class ProxyPatternUnitTest {
     @Test
     void givenAdminUser_whenDeleteTask_thenTaskIsRemoved() {
         TaskRepository realRepo = new InMemoryTaskRepository();
-        UserContext adminContext = new UserContext(UserRole.ADMIN);
-        TaskRepository proxy = new SecurityProxyRepository(realRepo,
-          adminContext);
+        UserContextHolder.setRole(UserRole.ADMIN);
+        TaskRepository proxy = new SecurityProxyRepository(realRepo);
 
         proxy.save(new Task(1L, "Design review", TaskStatus.TO_DO));
         proxy.deleteTask(1L);
@@ -24,22 +23,19 @@ class ProxyPatternUnitTest {
     @Test
     void givenNonAdminUser_whenDeleteTask_thenThrowsSecurityException() {
         TaskRepository realRepo = new InMemoryTaskRepository();
-        UserContext userContext = new UserContext(UserRole.USER);
-        TaskRepository proxy = new SecurityProxyRepository(realRepo,
-          userContext);
+        UserContextHolder.setRole(UserRole.USER);
+        TaskRepository proxy = new SecurityProxyRepository(realRepo);
 
         proxy.save(new Task(1L, "Design review", TaskStatus.TO_DO));
 
-        assertThrows(SecurityException.class,
-          () -> proxy.deleteTask(1L));
+        assertThrows(SecurityException.class, () -> proxy.deleteTask(1L));
     }
 
     @Test
     void givenNonAdminUser_whenSaveAndFindAll_thenOperationsSucceed() {
         TaskRepository realRepo = new InMemoryTaskRepository();
-        UserContext userContext = new UserContext(UserRole.USER);
-        TaskRepository proxy = new SecurityProxyRepository(realRepo,
-          userContext);
+        UserContextHolder.setRole(UserRole.USER);
+        TaskRepository proxy = new SecurityProxyRepository(realRepo);
 
         proxy.save(new Task(1L, "Design review", TaskStatus.TO_DO));
 
