@@ -5,12 +5,7 @@
 
     <description>Learn Design Patterns - The Builder Pattern - End</description>
 
-    <parent>
-        <groupId>com.baeldung</groupId>
-        <artifactId>ldp-creational-design-patterns</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
+    <groupId>com.baeldung</groupId>
     <artifactId>the-builder-pattern-end</artifactId>
     <name>the-builder-pattern-end</name>
     <version>1.0.0</version>

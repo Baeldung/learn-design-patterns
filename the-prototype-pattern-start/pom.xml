@@ -5,12 +5,7 @@
 
     <description>Learn Design Patterns - The Prototype Pattern - Start</description>
 
-    <parent>
-        <groupId>com.baeldung</groupId>
-        <artifactId>ldp-creational-design-patterns</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
+    <groupId>com.baeldung</groupId>
     <artifactId>the-prototype-pattern-start</artifactId>
     <name>the-prototype-pattern-start</name>
     <version>1.0.0</version>

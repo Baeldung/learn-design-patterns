@@ -5,12 +5,7 @@
 
     <description>Learn Design Patterns - The Singleton Pattern - End</description>
 
-    <parent>
-        <groupId>com.baeldung</groupId>
-        <artifactId>ldp-creational-design-patterns</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
+    <groupId>com.baeldung</groupId>
     <artifactId>the-singleton-pattern-end</artifactId>
     <name>the-singleton-pattern-end</name>
     <version>1.0.0</version>

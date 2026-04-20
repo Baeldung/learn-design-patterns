@@ -5,12 +5,7 @@
 
     <description>Learn Design Patterns - The Builder Pattern - Start</description>
 
-    <parent>
-        <groupId>com.baeldung</groupId>
-        <artifactId>ldp-creational-design-patterns</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
+    <groupId>com.baeldung</groupId>
     <artifactId>the-builder-pattern-start</artifactId>
     <name>the-builder-pattern-start</name>
     <version>1.0.0</version>
