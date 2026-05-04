@@ -12,5 +12,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>the-strategy-pattern-start</module>
+        <module>the-strategy-pattern-end</module>
+        <module>the-observer-pattern-start</module>
+        <module>the-observer-pattern-end</module>
     </modules>
 </project>
