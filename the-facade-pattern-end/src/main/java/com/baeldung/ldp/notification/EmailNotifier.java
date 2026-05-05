@@ -1,4 +1,4 @@
-package com.baeldung.ldp.facade;
+package com.baeldung.ldp.notification;
 
 public class EmailNotifier {
 
