@@ -16,5 +16,9 @@
         <module>the-strategy-pattern-end</module>
         <module>the-observer-pattern-start</module>
         <module>the-observer-pattern-end</module>
+        <module>the-command-pattern-start</module>
+        <module>the-command-pattern-end</module>
+        <module>the-template-method-pattern-start</module>
+        <module>the-template-method-pattern-end</module>
     </modules>
 </project>

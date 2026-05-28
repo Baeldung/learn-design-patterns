@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <description>Learn Design Patterns - The Observer Pattern - End</description>
+    <description>Learn Design Patterns - The Template Method Pattern - End</description>
 
     <parent>
         <groupId>com.baeldung</groupId>
@@ -11,8 +11,8 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>the-observer-pattern-end</artifactId>
-    <name>the-observer-pattern-end</name>
+    <artifactId>the-template-method-pattern-end</artifactId>
+    <name>the-template-method-pattern-end</name>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
