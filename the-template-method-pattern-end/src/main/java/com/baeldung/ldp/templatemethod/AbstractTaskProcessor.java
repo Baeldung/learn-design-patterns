@@ -1,6 +1,11 @@
 package com.baeldung.ldp.templatemethod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractTaskProcessor {
+
+    private final List<String> notifications = new ArrayList<>();
 
     public final TaskResult processTask(Task task) {
         validateTask(task);
@@ -14,7 +19,13 @@ public abstract class AbstractTaskProcessor {
 
     protected abstract TaskResult persistResult(Task task);
 
-    protected abstract void notifyStakeholders(Task task, TaskResult result);
+    protected void notifyStakeholders(Task task, TaskResult result) {
+        notifications.add("notified:" + result.getRecordId() + ":" + result.getSummary());
+    }
 
     protected abstract void auditTask(Task task, TaskResult result);
+
+    public List<String> getNotifications() {
+        return notifications;
+    }
 }

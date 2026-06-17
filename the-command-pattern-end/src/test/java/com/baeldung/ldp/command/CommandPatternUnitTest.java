@@ -54,4 +54,17 @@ class CommandPatternUnitTest {
         invoker.undo();
         assertNull(repository.findById(id).orElseThrow().getAssignee());
     }
+
+    @Test
+    void givenRunnableCommand_whenRun_thenStatusUpdated() {
+        TaskRepository repository = new TaskRepository();
+        Task task = new Task("Fix bug");
+        task.setStatus(TaskStatus.TO_DO);
+        Long taskId = repository.create(task);
+
+        Runnable changeToInProgress = () -> repository.updateStatus(taskId, TaskStatus.IN_PROGRESS);
+        changeToInProgress.run();
+
+        assertEquals(TaskStatus.IN_PROGRESS, repository.findById(taskId).orElseThrow().getStatus());
+    }
 }

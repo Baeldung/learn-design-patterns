@@ -10,20 +10,24 @@ public class TaskRepository {
     private long nextId = 1L;
 
     public Long create(Task task) {
-        // TODO: assign next id, store the task, and return its id
-        return null;
+        task.setId(nextId++);
+        tasks.put(task.getId(), task);
+        return task.getId();
     }
 
     public void updateStatus(Long id, TaskStatus newStatus) {
-        // TODO: update the status of the task with the given id
+        tasks.get(id).setStatus(newStatus);
     }
 
     public void assign(Long id, String assignee) {
-        // TODO: assign the task with the given id to the given assignee
+        tasks.get(id).setAssignee(assignee);
     }
 
     public Optional<Task> findById(Long id) {
-        // TODO: return the task with the given id, if any
-        return Optional.empty();
+        return Optional.ofNullable(tasks.get(id));
+    }
+
+    public void remove(Long id) {
+        tasks.remove(id);
     }
 }

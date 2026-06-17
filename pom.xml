@@ -20,5 +20,7 @@
         <module>the-command-pattern-end</module>
         <module>the-template-method-pattern-start</module>
         <module>the-template-method-pattern-end</module>
+        <module>the-chain-of-responsibility-pattern-start</module>
+        <module>the-chain-of-responsibility-pattern-end</module>
     </modules>
 </project>

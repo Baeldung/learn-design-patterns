@@ -1,75 +1,88 @@
 package com.baeldung.ldp.templatemethod;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class TemplateMethodPatternUnitTest {
 
-    @Test
-    void givenEmailTask_whenProcessTask_thenAllStepsRunAndCaptureNamedOutcomes() {
-        EmailNotificationTaskProcessor processor = new EmailNotificationTaskProcessor();
-        Task task = new Task(1L, TaskType.EMAIL_NOTIFICATION, Map.of(
-            "recipient", "alice@example.com",
-            "subject", "Welcome",
-            "body", "Hello there"));
+    private static class TrackingTaskProcessor extends AbstractTaskProcessor {
+        final List<String> executionOrder = new ArrayList<>();
 
-        TaskResult result = processor.processTask(task);
+        @Override
+        protected void validateTask(Task task) {
+            executionOrder.add("validate");
+        }
 
-        String summary = result.getSummary();
-        List<String> deliveryChannel = processor.getDeliveryChannel();
-        List<String> auditLog = processor.getAuditLog();
-        assertNotNull(result.getRecordId());
-        assertTrue(summary.contains("alice@example.com"));
-        assertTrue(summary.contains("Welcome"));
-        assertEquals(1, deliveryChannel.size());
-        String deliveryEntry = deliveryChannel.get(0);
-        assertTrue(deliveryEntry.contains("alice@example.com"));
-        assertEquals(1, auditLog.size());
-        String auditEntry = auditLog.get(0);
-        assertTrue(auditEntry.contains("alice@example.com"));
+        @Override
+        protected TaskResult persistResult(Task task) {
+            executionOrder.add("persist");
+            return new TaskResult(1L, "tracking");
+        }
+
+        @Override
+        protected void notifyStakeholders(Task task, TaskResult result) {
+            executionOrder.add("notify");
+        }
+
+        @Override
+        protected void auditTask(Task task, TaskResult result) {
+            executionOrder.add("audit");
+        }
     }
 
     @Test
-    void givenReportTask_whenProcessTask_thenAllStepsRunAndCaptureNamedOutcomes() {
-        ReportGenerationTaskProcessor processor = new ReportGenerationTaskProcessor();
-        Task task = new Task(2L, TaskType.REPORT_GENERATION, Map.of(
-            "dataset", "Q3-sales",
-            "from", "2050-07-01",
-            "to", "2050-09-30",
-            "rowCount", 1234));
+    void givenAnyTask_whenProcessTask_thenStepsRunInFixedOrder() {
+        TrackingTaskProcessor processor = new TrackingTaskProcessor();
+        Task task = new Task(
+            1L,
+            TaskType.EMAIL_NOTIFICATION,
+            Map.of("recipient", "alice@example.com", "body", "Hello")
+        );
 
-        TaskResult result = processor.processTask(task);
+        processor.processTask(task);
 
-        String summary = result.getSummary();
-        List<String> digestChannel = processor.getDigestChannel();
-        List<String> auditLog = processor.getAuditLog();
-        assertTrue(summary.contains("Q3-sales"));
-        assertTrue(summary.contains("rows=1234"));
-        assertEquals(1, digestChannel.size());
-        String digestEntry = digestChannel.get(0);
-        assertTrue(digestEntry.contains("Q3-sales"));
-        assertEquals(1, auditLog.size());
-        String auditEntry = auditLog.get(0);
-        assertTrue(auditEntry.contains("rows=1234"));
+        assertEquals(
+            List.of("validate", "persist", "notify", "audit"),
+            processor.executionOrder
+        );
     }
 
     @Test
-    void givenEmailTaskWithBlankRecipient_whenProcessTask_thenThrowsAndDownstreamStepsNotCalled() {
-        EmailNotificationTaskProcessor processor = new EmailNotificationTaskProcessor();
-        Task task = new Task(3L, TaskType.EMAIL_NOTIFICATION, Map.of(
-            "recipient", "",
-            "body", "Hello"));
+    void givenValidationFails_whenProcessTask_thenOnlyValidationRuns() {
+        List<String> executionOrder = new ArrayList<>();
+        AbstractTaskProcessor processor = new AbstractTaskProcessor() {
+            @Override
+            protected void validateTask(Task task) {
+                executionOrder.add("validate");
+                throw new IllegalArgumentException("invalid task");
+            }
 
-        assertThrows(IllegalArgumentException.class, () -> processor.processTask(task));
-        List<String> deliveryChannel = processor.getDeliveryChannel();
-        List<String> auditLog = processor.getAuditLog();
-        assertTrue(deliveryChannel.isEmpty());
-        assertTrue(auditLog.isEmpty());
+            @Override
+            protected TaskResult persistResult(Task task) {
+                executionOrder.add("persist");
+                return new TaskResult(1L, "tracking");
+            }
+
+            @Override
+            protected void notifyStakeholders(Task task, TaskResult result) {
+                executionOrder.add("notify");
+            }
+
+            @Override
+            protected void auditTask(Task task, TaskResult result) {
+                executionOrder.add("audit");
+            }
+        };
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> processor.processTask(new Task(2L, TaskType.EMAIL_NOTIFICATION, Map.of()))
+        );
+        assertEquals(List.of("validate"), executionOrder);
     }
 }

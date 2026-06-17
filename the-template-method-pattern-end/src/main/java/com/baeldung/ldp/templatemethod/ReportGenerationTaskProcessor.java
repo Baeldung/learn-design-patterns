@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class ReportGenerationTaskProcessor extends AbstractTaskProcessor {
 
-    private final List<String> digestChannel = new ArrayList<>();
     private final List<String> auditLog = new ArrayList<>();
 
     @Override
@@ -30,21 +29,12 @@ public class ReportGenerationTaskProcessor extends AbstractTaskProcessor {
     }
 
     @Override
-    protected void notifyStakeholders(Task task, TaskResult result) {
-        Map<String, Object> payload = task.getPayload();
-        String dataset = (String) payload.get("dataset");
-        digestChannel.add("digest:" + dataset + ":" + result.getRecordId());
-    }
-
-    @Override
     protected void auditTask(Task task, TaskResult result) {
         Map<String, Object> payload = task.getPayload();
+        String dataset = (String) payload.get("dataset");
         Object rowCount = payload.get("rowCount");
+        auditLog.add("report:" + result.getRecordId() + ":dataset=" + dataset);
         auditLog.add("report:" + result.getRecordId() + ":rows=" + rowCount);
-    }
-
-    public List<String> getDigestChannel() {
-        return digestChannel;
     }
 
     public List<String> getAuditLog() {
